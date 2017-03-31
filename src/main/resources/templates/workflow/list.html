@@ -1,0 +1,46 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorator="layout">
+<head>
+	<title>ワークフロー一覧</title>
+</head>
+<body>
+	<div layout:fragment="content">
+	<fieldset>
+		<legend>Legend</legend>
+		<table class="table table-hover">
+			<colgroup>
+				<col width="24px" />
+				<col/>
+			</colgroup>
+			<tr>
+				<th>No</th>
+				<th>title</th>
+			</tr>
+			<tr th:each="workflow, stat : ${workflows}" th:class="${stat.index} == 2 ? 'error' : ''" th:object="${workflow}">
+				<td th:text="${stat.index} + ${offset}">NO</td>
+				<td>
+					<input type="checkbox" />
+					<a href="/workflow/1" th:href="@{/workflow/{seq}(seq = *{workflowSeq})}" th:text="*{title}">TITLE</a>
+				</td>
+			</tr>
+		</table>
+		<div class="pagination" th:object="${paging}">
+			<ul>
+				<li th:class="*{prev} ? '' : 'disabled'">
+					<a href="/workflow/list" th:href="@{/workflow/list(state=${state}, page=${'0'})}">Prev</a>
+				</li>
+				<li th:each="page : *{pages}" th:class="${page.active} ? 'active' : ''">
+					<a href="/workflow/list" th:href="@{/workflow/list(state=${state}, page=${page.page})}" th:text="${page.no}" >1</a>
+				</li>
+				<li th:class="*{next} ? '' : 'disabled'">
+					<a href="/workflow/list" th:href="@{/workflow/list(state=${state}, page=${paging.maxPage})}">Next</a>
+				</li>
+			</ul>
+		</div>
+	</fieldset>
+	</div>
+</body>
+</html>

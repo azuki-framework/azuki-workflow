@@ -1,0 +1,11 @@
+
+
+spring:
+  thymeleaf:
+    enabled : true
+    cache   : false
+
+logging.level.: INFO
+logging.level.root: INFO
+logging.level.ROOT: INFO
+logging.level.org.azkfw.workflow : DEBUG
